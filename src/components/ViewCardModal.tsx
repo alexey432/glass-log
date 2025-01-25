@@ -68,7 +68,7 @@ const ViewCardModal: React.FC<ViewCardModalProps> = ({
           {/* Upvotes */}
           <div className="flex items-center gap-2">
             <FaStar className="text-yellow-500 w-5 h-5" />
-            <span className="text-lg font-medium">{card.upvotes} Votes</span>
+            <span className="text-lg font-medium">{card.upvotes} Голоса</span>
           </div>
 
           {/* Storypoints */}
@@ -84,7 +84,7 @@ const ViewCardModal: React.FC<ViewCardModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition"
           >
-            Close
+            Закрыть
           </button>
           <button
             onClick={() => canUpvote && onUpvote(card._id)}
@@ -95,7 +95,7 @@ const ViewCardModal: React.FC<ViewCardModalProps> = ({
                 : "bg-gray-400 text-gray-700 cursor-not-allowed"
             } transition`}
           >
-            Upvote
+            Голосовать
           </button>
         </div>
       </div>

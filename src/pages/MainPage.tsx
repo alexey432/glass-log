@@ -82,7 +82,6 @@ const MainPage: React.FC = () => {
       return;
     }
     try {
-      // Optimistically update UI before backend confirmation
       setCards((prevCards) =>
         prevCards.map((card) =>
           card._id === id ? { ...card, upvotes: card.upvotes + 1 } : card
@@ -95,7 +94,6 @@ const MainPage: React.FC = () => {
       }
       setAvailableVotes((prev) => prev - 1);
 
-      // Update backend
       await updateCard(id, { $inc: { upvotes: 1 } });
       if (keyId) {
         await updateKey(keyId, { votes: availableVotes - 1 });
@@ -131,14 +129,18 @@ const MainPage: React.FC = () => {
   };
 
   const sortedCards = [...cards].sort((a, b) => b.upvotes - a.upvotes);
+
+  // Exclude cards with storypoints === 0
   let remainingCapacity = totalCapacity;
-  const leaderboard = sortedCards.map((card) => {
-    if (remainingCapacity >= card.storypoints) {
-      remainingCapacity -= card.storypoints;
-      return { ...card, isWinner: true };
-    }
-    return { ...card, isWinner: false };
-  });
+  const leaderboard = sortedCards
+    .filter((card) => card.storypoints > 0) // Exclude cards with 0 storypoints
+    .map((card) => {
+      if (remainingCapacity >= card.storypoints) {
+        remainingCapacity -= card.storypoints;
+        return { ...card, isWinner: true };
+      }
+      return { ...card, isWinner: false };
+    });
 
   return (
     <div className="h-screen flex overflow-hidden">
@@ -184,7 +186,7 @@ const MainPage: React.FC = () => {
 
       {viewingCard && (
         <ViewCardModal
-          card={viewingCard} // Pass updated card
+          card={viewingCard}
           onClose={() => setViewingCard(null)}
           onUpvote={handleUpvote}
           canUpvote={MemberState && availableVotes > 0}

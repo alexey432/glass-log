@@ -82,11 +82,11 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ onClose, onAdd }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full">
-        <h2 className="text-2xl font-bold mb-4">Create a New Card</h2>
+        <h2 className="text-2xl font-bold mb-4">Добавить идею</h2>
         <div className="max-h-[60vh] overflow-y-auto">
           <input
             type="text"
-            placeholder="Card Name"
+            placeholder="Название"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full mb-4 px-4 py-2 border rounded focus:ring focus:ring-blue-500"
@@ -95,16 +95,16 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ onClose, onAdd }) => {
             value={description}
             onChange={setDescription}
             className="mb-6 rounded"
-            placeholder="Describe your idea in detail."
+            placeholder="Опишите ваш кейс или идею подробнее, приложите скриншоты, если нужно"
           />
           <div className="mb-6">
-            <label className="block font-bold mb-2">Attachments</label>
+            <label className="block font-bold mb-2">Приложения</label>
             <div
               {...getRootProps()}
               className="w-full h-32 border-2 border-dashed border-gray-400 rounded flex items-center justify-center cursor-pointer text-gray-600 bg-gray-100 hover:bg-gray-200"
             >
               <input {...getInputProps()} />
-              <p>Drag files here or click to upload</p>
+              <p>Перетащите файлы сюда</p>
             </div>
             {uploading && <p className="text-sm text-blue-500">Uploading...</p>}
             {media.length > 0 && (
@@ -130,13 +130,13 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ onClose, onAdd }) => {
         </div>
         <div className="flex justify-end gap-4">
           <button onClick={onClose} className="px-4 py-2 bg-gray-300 rounded">
-            Cancel
+            Закрыть
           </button>
           <button
             onClick={handleSubmit}
             className="px-4 py-2 bg-blue-500 text-white rounded"
           >
-            Submit
+            Отправить
           </button>
         </div>
       </div>
