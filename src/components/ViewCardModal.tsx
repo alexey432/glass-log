@@ -28,7 +28,7 @@ const ViewCardModal: React.FC<ViewCardModalProps> = ({
 }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-      <div className="bg-white p-8 rounded-lg shadow-xl max-w-3xl w-full relative overflow-y-auto">
+      <div className="bg-white p-8 rounded-lg shadow-xl max-w-3xl w-full relative overflow-y-auto max-h-[90vh] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-200">
         {/* Close Button */}
         <button
           onClick={onClose}

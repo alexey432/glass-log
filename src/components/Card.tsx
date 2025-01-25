@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({
   onUpvote,
   canUpvote,
 }) => {
-  const maxMedia = Math.min(5, media.length);
+  const maxMedia = Math.min(4, media.length);
 
   return (
     <div className="relative p-4 rounded-lg shadow-md flex flex-col justify-between bg-white">
@@ -38,10 +38,22 @@ const Card: React.FC<CardProps> = ({
           </span>
         </div>
       )}
-      <h3 className="text-xl font-bold mb-2">{name}</h3>
 
+      {/* Title and Stars */}
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-xl font-bold truncate max-w-[90%]">{name}</h3>
+        <div
+          className="flex items-center text-gray-700"
+          data-tooltip-id={`stars-tooltip-${name}`}
+          data-tooltip-content="Stars - кол-во голосов за доработку"
+        >
+          <FaStar className="text-yellow-500 w-5 h-5 mr-1" />
+          <span className="text-lg font-semibold">{upvotes}</span>
+        </div>
+      </div>
+
+      {/* Description */}
       <div className="bg-gray-100 p-2 rounded mb-4 h-32 overflow-hidden">
-        {/* Render HTML content with styling for lists and bullet points */}
         <div
           className="text-gray-700 text-sm overflow-hidden line-clamp-8 prose prose-sm max-w-none"
           title={description.replace(/<[^>]+>/g, "")} // Remove HTML tags for the tooltip
@@ -49,6 +61,7 @@ const Card: React.FC<CardProps> = ({
         ></div>
       </div>
 
+      {/* Media Section */}
       <div className="flex items-center gap-2 mb-4">
         {media.slice(0, maxMedia).map((url, index) => (
           <img
@@ -65,6 +78,7 @@ const Card: React.FC<CardProps> = ({
         )}
       </div>
 
+      {/* Action Buttons */}
       <div className="flex items-center gap-4">
         <button
           onClick={onView}
@@ -83,16 +97,6 @@ const Card: React.FC<CardProps> = ({
         >
           Голосовать
         </button>
-      </div>
-
-      {/* Stars Tooltip */}
-      <div
-        className="absolute top-4 right-4 flex items-center text-gray-700"
-        data-tooltip-id={`stars-tooltip-${name}`}
-        data-tooltip-content="Stars - кол-во голосов за доработку"
-      >
-        <FaStar className="text-yellow-500 w-5 h-5 mr-1" />
-        <span className="text-lg font-semibold">{upvotes}</span>
       </div>
 
       {/* Storypoints Tooltip */}

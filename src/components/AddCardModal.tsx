@@ -28,27 +28,26 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ onClose, onAdd }) => {
 
   // Handle file drop
   const onDrop = async (acceptedFiles: File[]) => {
-    // Create previews
-    const previews = acceptedFiles.map((file) => ({
-      preview: URL.createObjectURL(file),
-    }));
-
-    // Add previews to media state
-    setMedia((prev) => [...prev, ...previews]);
-
     try {
-      setUploading(true);
-      const uploadedPaths = await Promise.all(
-        acceptedFiles.map((file) => uploadMedia(file))
-      );
+      // Create previews and upload files
+      const previews = acceptedFiles.map((file) => ({
+        preview: URL.createObjectURL(file),
+      }));
 
-      // Map uploaded URLs to previews
-      setMedia((prev) =>
-        prev.map((item, index) => ({
-          ...item,
-          url: item.url || uploadedPaths[index] || item.preview,
-        }))
-      );
+      setUploading(true);
+
+      // Upload the new files
+      const formData = new FormData();
+      acceptedFiles.forEach((file) => formData.append("files", file));
+      const uploadedPaths = await uploadMedia(formData);
+
+      // Add uploaded files to the media state
+      const newMediaItems = uploadedPaths.map((url, index) => ({
+        preview: previews[index].preview, // Local preview
+        url, // Uploaded URL from the backend
+      }));
+
+      setMedia((prev) => [...prev, ...newMediaItems]);
     } catch (error) {
       console.error("Error uploading files:", error);
       alert("Failed to upload some files. Please try again.");
