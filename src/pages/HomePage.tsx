@@ -1,13 +1,27 @@
-﻿import React, { useState } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-// Constant for valid keys
-const keys = ["member123", "key456", "example789", "123"]; // Add valid keys here
+import { fetchKeys } from "../api/keysApi"; // Import the fetchKeys function
 
 const HomePage: React.FC = () => {
   const [code, setCode] = useState("");
   const [error, setError] = useState(""); // For error message display
+  const [keys, setKeys] = useState<{ key: string }[]>([]); // State to store keys from the backend
   const navigate = useNavigate();
+
+  // Fetch keys from the backend on component mount
+  useEffect(() => {
+    const fetchAllKeys = async () => {
+      try {
+        const keysData = await fetchKeys();
+        setKeys(keysData); // Assuming keysData is an array of key objects
+      } catch (error) {
+        console.error("Error fetching keys:", error);
+        setError("Не удалось загрузить ключи. Попробуйте позже.");
+      }
+    };
+
+    fetchAllKeys();
+  }, []);
 
   const handleExploreInitiatives = () => {
     // Navigate to MainPage with MemberState = false
@@ -20,7 +34,9 @@ const HomePage: React.FC = () => {
       return;
     }
 
-    if (keys.includes(code)) {
+    const isValidKey = keys.some((keyObj) => keyObj.key === code); // Check if the entered key exists in the keys array
+
+    if (isValidKey) {
       // Navigate to MainPage with MemberState = true
       navigate("/main", { state: { MemberState: true } });
     } else {

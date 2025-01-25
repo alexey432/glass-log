@@ -27,7 +27,17 @@ const Card: React.FC<CardProps> = ({
   const maxMedia = Math.min(5, media.length);
 
   return (
-    <div className="relative bg-white p-4 rounded-lg shadow-md flex flex-col justify-between">
+    <div className="relative p-4 rounded-lg shadow-md flex flex-col justify-between bg-white">
+      {storypoints === 0 && (
+        <div className="absolute inset-0 bg-gray-200 bg-opacity-80 blur"></div>
+      )}
+      {storypoints === 0 && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <span className="bg-red-500 text-white px-4 py-2 rounded text-lg font-semibold z-10">
+            На оценке
+          </span>
+        </div>
+      )}
       <h3 className="text-xl font-bold mb-2">{name}</h3>
 
       <div className="bg-gray-100 p-2 rounded mb-4 h-32 overflow-hidden">

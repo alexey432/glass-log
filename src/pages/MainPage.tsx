@@ -114,7 +114,7 @@ const MainPage: React.FC = () => {
     const newCard: Omit<Card, "_id" | "upvotes"> = {
       name,
       description,
-      storypoints: Math.floor(Math.random() * 30) + 10,
+      storypoints: 0,
       media,
     };
 
