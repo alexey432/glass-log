@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-gray-50 bg-cover bg-center px-4"
-      style={{ backgroundImage: "url('/src/assets/background.svg')" }}
+      style={{ backgroundImage: "url('/background.svg')" }}
     >
       <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-md text-center max-w-md w-full">
         {/* Logo Section */}
