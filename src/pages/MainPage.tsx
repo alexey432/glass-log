@@ -146,7 +146,7 @@ const MainPage: React.FC = () => {
     <div className="h-screen flex overflow-hidden">
       <div
         className="w-3/4 p-6 relative overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-200"
-        style={{ backgroundImage: "url('/src/assets/background.svg')" }}
+        style={{ backgroundImage: "url('/background.svg')" }}
       >
         <div className="flex items-center mb-4 sticky top-0 z-10 p-4">
           <button
