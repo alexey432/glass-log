@@ -1,6 +1,6 @@
 ﻿import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api/cards"; // Backend URL
+const API_BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/api/cards`;
 
 // Fetch all cards
 export const fetchCards = async () => {
